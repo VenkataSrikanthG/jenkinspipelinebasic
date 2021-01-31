@@ -12,7 +12,7 @@ pipeline {
         stage('Test') {
           steps {
             echo 'Testing the application'
-            echo '"Add Chromedriver $(ChromeDriverPath)"'
+            echo "Add Chromedriver $(ChromeDriverPath)"
           }
         }
 
