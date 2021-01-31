@@ -16,13 +16,30 @@ pipeline {
           }
         }
 
+        stage('Test log') {
+          steps {
+            writeFile(file: 'LogTestFile.txt', text: 'This is an automation log file.')
+          }
+        }
+
       }
     }
 
     stage('Deploy') {
-      steps {
-        input(message: 'Do you want to Deploy?', id: 'OK')
-        echo 'Deploying the application on the IIS servers'
+      parallel {
+        stage('Deploy') {
+          steps {
+            input(message: 'Do you want to Deploy?', id: 'OK')
+            echo 'Deploying the application on the IIS servers'
+          }
+        }
+
+        stage('Artifact') {
+          steps {
+            archiveArtifacts 'LogTestFile.txt'
+          }
+        }
+
       }
     }
 
